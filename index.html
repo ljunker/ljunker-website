@@ -61,7 +61,6 @@
                     <tr>
                         <th>Datum</th>
                         <th>Uhrzeit</th>
-                        <th>Ort</th>
                         <th>Details</th>
                     </tr>
                 </thead>
@@ -107,7 +106,6 @@
                     row.innerHTML = `
                         <td>${formattedDate}</td>
                         <td>${event.time}</td>
-                        <td>${event.location}</td>
                         <td>${event.details}</td>
                     `;
                     eventsBody.appendChild(row);
