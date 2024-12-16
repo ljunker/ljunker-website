@@ -42,6 +42,11 @@
         .schedule-table th {
             background-color: #f4f4f4;
         }
+        .no-events {
+            text-align: center;
+            margin: 20px 0;
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +56,7 @@
     <main>
         <section>
             <h2>Calltermine</h2>
-            <table class="schedule-table">
+            <table class="schedule-table" id="schedule">
                 <thead>
                     <tr>
                         <th>Datum</th>
@@ -60,19 +65,58 @@
                         <th>Details</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>16.12.2024</td>
-                        <td>18:30</td>
-                        <td>Wagrierweg 18, Hamburg</td>
-                        <td>Weihnachtsfeier Ohmoor Squeezers</td>
-                    </tr>
+                <tbody id="events-body">
+                    <!-- Dynamisch generierte Termine -->
                 </tbody>
             </table>
+            <p class="no-events" id="no-events" style="display: none;">Keine Termine in den nächsten Wochen.</p>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 Lars Junker. Alle Rechte vorbehalten.</p>
     </footer>
+    <script>
+        async function loadEvents() {
+            const response = await fetch('events.json');
+            const events = await response.json();
+            const today = new Date();
+            today.setDate(today.getDate()-1);
+            const twoWeeksLater = new Date();
+            twoWeeksLater.setDate(today.getDate() + 29);
+
+            const filteredEvents = events.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate >= today && eventDate <= twoWeeksLater;
+            });
+
+            const eventsBody = document.getElementById('events-body');
+            const noEventsMessage = document.getElementById('no-events');
+
+            if (filteredEvents.length > 0) {
+                noEventsMessage.style.display = 'none';
+                const formatter = new Intl.DateTimeFormat('de-DE', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                });
+                filteredEvents.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    const formattedDate = formatter.format(eventDate);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formattedDate}</td>
+                        <td>${event.time}</td>
+                        <td>${event.location}</td>
+                        <td>${event.details}</td>
+                    `;
+                    eventsBody.appendChild(row);
+                });
+            } else {
+                noEventsMessage.style.display = 'block';
+            }
+        }
+
+        loadEvents();
+    </script>
 </body>
 </html>
