@@ -87,7 +87,8 @@
             const filteredEvents = events.filter(event => {
                 const eventDate = new Date(event.date);
                 return eventDate >= today && eventDate <= twoWeeksLater;
-            });
+            })
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
 
             const eventsBody = document.getElementById('events-body');
             const noEventsMessage = document.getElementById('no-events');
