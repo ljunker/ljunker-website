@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webseite von Lars Junker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Lars Junker</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a class="active" href="schedule.html">Termine</a>
+        <!--<a href="/contact.html">Kontakt</a>-->
+    </nav>
+    <main>
+        <section>
+            <h2>Calltermine</h2>
+            <table class="schedule-table" id="schedule">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Uhrzeit</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="events-body">
+                    <!-- Dynamisch generierte Termine -->
+                </tbody>
+            </table>
+            <p class="no-events" id="no-events" style="display: none;">Keine Termine in den nächsten Wochen.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Lars Junker. Alle Rechte vorbehalten.</p>
+    </footer>
+    <script>
+        async function loadEvents() {
+            const response = await fetch('events.json');
+            const events = await response.json();
+            const today = new Date();
+            today.setDate(today.getDate()-1);
+            const twoWeeksLater = new Date();
+            twoWeeksLater.setDate(today.getDate() + 29);
+
+            const filteredEvents = events.filter(event => {
+                const eventDate = new Date(event.date);
+                return eventDate >= today && eventDate <= twoWeeksLater;
+            })
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const eventsBody = document.getElementById('events-body');
+            const noEventsMessage = document.getElementById('no-events');
+
+            if (filteredEvents.length > 0) {
+                noEventsMessage.style.display = 'none';
+                const formatter = new Intl.DateTimeFormat('de-DE', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                });
+                filteredEvents.forEach(event => {
+                    const eventDate = new Date(event.date);
+                    const formattedDate = formatter.format(eventDate);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${formattedDate}</td>
+                        <td>${event.time}</td>
+                        <td>${event.details}</td>
+                    `;
+                    eventsBody.appendChild(row);
+                });
+            } else {
+                noEventsMessage.style.display = 'block';
+            }
+        }
+
+        loadEvents();
+    </script>
+</body>
+</html>

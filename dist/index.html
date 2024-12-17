@@ -4,118 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webseite von Lars Junker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px 0;
-            background-color: #f1f1f1;
-        }
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .schedule-table th, .schedule-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .schedule-table th {
-            background-color: #f4f4f4;
-        }
-        .no-events {
-            text-align: center;
-            margin: 20px 0;
-            color: #888;
-        }
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Lars Junker</h1>
     </header>
+    <nav>
+        <a class="active" href="index.html">Home</a>
+        <a href="schedule.html">Termine</a>
+        <!--<a href="/contact.html">Kontakt</a>-->
+    </nav>
     <main>
         <section>
-            <h2>Calltermine</h2>
-            <table class="schedule-table" id="schedule">
-                <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Uhrzeit</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody id="events-body">
-                    <!-- Dynamisch generierte Termine -->
-                </tbody>
-            </table>
-            <p class="no-events" id="no-events" style="display: none;">Keine Termine in den nächsten Wochen.</p>
+            <h2>Hallo</h2>
+            <p>Ich bin von Beruf IT-Berater und aus Leidenschaft Square Dance-Caller. 
+                Tagsüber schreibe ich Code, um Probleme zu lösen und innovative Lösungen zu entwickeln; 
+                abends bringe ich Menschen mit Musik und Tanz zusammen. 
+                Egal, ob du hier bist, um mehr über meinen Calling-Zeitplan zu erfahren oder mich zu kontaktieren, 
+                ich freue mich, dass du vorbeigeschaut hast!</p>
+            <a class="contact" href="mailto:larsjunker92@gmail.com"><i class="material-icons">mail</i> E-Mail</a>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 Lars Junker. Alle Rechte vorbehalten.</p>
     </footer>
-    <script>
-        async function loadEvents() {
-            const response = await fetch('events.json');
-            const events = await response.json();
-            const today = new Date();
-            today.setDate(today.getDate()-1);
-            const twoWeeksLater = new Date();
-            twoWeeksLater.setDate(today.getDate() + 29);
-
-            const filteredEvents = events.filter(event => {
-                const eventDate = new Date(event.date);
-                return eventDate >= today && eventDate <= twoWeeksLater;
-            })
-            .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            const eventsBody = document.getElementById('events-body');
-            const noEventsMessage = document.getElementById('no-events');
-
-            if (filteredEvents.length > 0) {
-                noEventsMessage.style.display = 'none';
-                const formatter = new Intl.DateTimeFormat('de-DE', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                });
-                filteredEvents.forEach(event => {
-                    const eventDate = new Date(event.date);
-                    const formattedDate = formatter.format(eventDate);
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${formattedDate}</td>
-                        <td>${event.time}</td>
-                        <td>${event.details}</td>
-                    `;
-                    eventsBody.appendChild(row);
-                });
-            } else {
-                noEventsMessage.style.display = 'block';
-            }
-        }
-
-        loadEvents();
-    </script>
 </body>
 </html>

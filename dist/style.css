@@ -1,0 +1,91 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px;
+}
+
+nav a:hover {
+    background-color: #575757;
+}
+
+nav a.active {
+    border: 1px solid white;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Table Styles */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.schedule-table th {
+    background-color: #f4f4f4;
+}
+
+/* No Events Message */
+.no-events {
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #f1f1f1;
+}
+
+a.contact {
+    color: white;
+    background-color: #575757;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px;
+}
+
+a.contact i {
+    vertical-align: middle;
+}
