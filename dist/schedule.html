@@ -11,37 +11,21 @@
         <link rel="shortcut icon" href="favicon/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="favicon/site.webmanifest" />
+        <script src="scripts/navBarActivator.js"></script>
     </head>
 <body>
     <header>
         <h1>Lars Junker</h1>
     </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a class="active" href="schedule.html">Termine</a>
-        <!--<a href="/contact.html">Kontakt</a>-->
-    </nav>
+    <div include-html="navbar.html"></div>
     <main>
-        <section>
-            <h2>Calltermine</h2>
-            <table class="schedule-table" id="schedule">
-                <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Uhrzeit</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody id="events-body">
-                    <!-- Dynamisch generierte Termine -->
-                </tbody>
-            </table>
-            <p class="no-events" id="no-events" style="display: none;">Keine Termine in den nächsten Wochen.</p>
-        </section>
+        <div include-html="schedule-content.html"></div>
     </main>
-    <footer>
-        <p>&copy; 2024 Lars Junker. Alle Rechte vorbehalten.</p>
-    </footer>
+    <div include-html="footer.html"></div>
+    <script src="scripts/include.js"></script>
+    <script>
+        includeHTML();
+    </script>
     <script>
         async function loadEvents() {
             const response = await fetch('events.json');
@@ -83,7 +67,9 @@
             }
         }
 
-        loadEvents();
+        setTimeout(function (){
+            loadEvents();
+        }, 150);
     </script>
 </body>
 </html>

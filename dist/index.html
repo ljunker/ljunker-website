@@ -11,30 +11,20 @@
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="favicon/site.webmanifest" />
+    <script src="scripts/navBarActivator.js"></script>
 </head>
 <body>
     <header>
         <h1>Lars Junker</h1>
     </header>
-    <nav>
-        <a class="active" href="index.html">Home</a>
-        <a href="schedule.html">Termine</a>
-    </nav>
+    <div include-html="navbar.html"></div>
     <main>
-        <section>
-            <h2>Hallo!</h2>
-            <p>Ich bin von Beruf IT-Berater und aus Leidenschaft Square Dance-Caller. 
-                Tagsüber schreibe ich Code, um Probleme zu lösen und innovative Lösungen zu entwickeln; 
-                abends bringe ich Menschen mit Musik und Tanz zusammen. 
-            </p>
-            <p>Egal, ob du hier bist, um mehr über meinen Calling-Zeitplan zu erfahren oder mich zu kontaktieren, 
-                ich freue mich, dass du vorbeigeschaut hast!
-            </p>
-            <a class="contact" href="mailto:larsjunker92+ljunker@gmail.com"><i class="material-icons">mail</i> E-Mail</a>
-        </section>
+        <div include-html="main.html"></div>
     </main>
-    <footer>
-        <p>&copy; 2024 Lars Junker. Alle Rechte vorbehalten.</p>
-    </footer>
+    <div include-html="footer.html"></div>
+    <script src="scripts/include.js"></script>
+    <script>
+        includeHTML();
+    </script>
 </body>
 </html>
