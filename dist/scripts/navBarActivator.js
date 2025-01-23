@@ -12,8 +12,11 @@ function navBarActivate() {
         for (var i = 0; i < links.length; i++) {
             // Check if the href attribute matches the current URL
             if (links[i].href === currentPath) {
-            // Add the "active" class to the matching <a> element
-            links[i].className += " active";
+                // Add the "active" class to the matching <a> element
+                links[i].className += " active";
+            }
+            if (currentPath.endsWith("/") && links[i].href.endsWith("index.html")) {
+                links[i].className += " active";
             }
         }
     }
