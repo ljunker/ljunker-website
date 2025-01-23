@@ -52,7 +52,8 @@ main {
     margin: 20px 0;
 }
 
-.schedule-table th, .schedule-table td {
+.schedule-table th,
+.schedule-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -88,4 +89,46 @@ a.contact {
 
 a.contact i {
     vertical-align: middle;
+}
+
+/* Style the unordered list */
+ul.article-list {
+    list-style-type: none;
+    /* Remove bullet points */
+    padding: 0;
+    /* Remove padding */
+    margin: 0;
+    /* Remove margin */
+}
+
+/* Style the list items */
+ul.article-list li {
+    margin: 10px 0;
+    /* Add spacing between items */
+}
+
+/* Style the links */
+ul.article-list li a {
+    text-decoration: none;
+    /* Remove underline */
+    color: #4CAF50;
+    /* Default link color */
+    font-weight: bold;
+    /* Make the text bold */
+    padding: 5px 10px;
+    /* Add padding for better click area */
+    border: 1px solid #4CAF50;
+    /* Add a border */
+    display: inline-block;
+    /* Ensure the padding works as expected */
+    transition: background-color 0.3s, color 0.3s;
+    /* Smooth transition */
+}
+
+/* Add hover effect */
+ul.article-list li a:hover {
+    background-color: #4CAF50;
+    /* Change background on hover */
+    color: #fff;
+    /* Change text color on hover */
 }
