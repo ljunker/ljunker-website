@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from pathlib import Path
 
 def load_events(file_path):
@@ -43,6 +44,7 @@ def add_event(events):
 def edit_event(event):
     """Edit an event by selecting which fields to modify."""
     while True:
+        print(f"{event['date']} {event['time']} - {event['details']} @ {event['location']}")
         print("\nEditing Event:")
         print(f"1. Date: {event['date']}")
         print(f"2. Time: {event['time']}")
@@ -76,18 +78,22 @@ def main():
     """Interactive event manager."""
     os.system("cls" if os.name == "nt" else "clear")  # Clear screen for better readability
 
-    # Ask for a file to open
-    file_path = input("Enter the event file to open (default: events.json): ").strip()
+    if len(sys.argv) == 2:
+        file_path = sys.argv[-1]
+    else:
+        # Ask for a file to open
+        file_path = input("Enter the event file to open (default: events.json): ").strip()
     if not file_path:
-        file_path = "events.json"
+        file_path = "dist/events.json"
 
     events = load_events(file_path)
     changes_made = False  # Track if any changes were made
+    list_events(events)
 
     while True:
         print("\nEvent Manager")
         print(f"Currently editing: {file_path}")
-        print("1. List events")
+        print("1. List Events")
         print("2. Add event")
         print("3. Edit/Delete event")
         print("4. Save changes")
@@ -95,6 +101,7 @@ def main():
         print("0. Exit")
 
         choice = input("\nSelect an option: ").strip()
+        os.system("cls" if os.name == "nt" else "clear")
 
         if choice == "1":
             list_events(events)
