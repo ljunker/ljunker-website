@@ -30,6 +30,7 @@ async function loadEvents() {
                 <td>${formattedDate}</td>
                 <td>${event.time}</td>
                 <td>${event.details}</td>
+                <td>${event.location}</td>
             `;
             eventsBody.appendChild(row);
         });
