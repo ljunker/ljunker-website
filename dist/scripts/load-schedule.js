@@ -4,7 +4,7 @@ async function loadEvents() {
     const today = new Date();
     today.setDate(today.getDate()-1);
     const twoWeeksLater = new Date();
-    twoWeeksLater.setDate(today.getDate() + 29);
+    twoWeeksLater.setDate(today.getDate() + 31);
 
     const filteredEvents = events.filter(event => {
         const eventDate = new Date(event.date);
