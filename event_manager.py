@@ -2,6 +2,18 @@ import json
 import os
 import sys
 from pathlib import Path
+import copy
+
+common_events = [
+    {
+        "details": "Clubabend Ohmoor Squeezers",
+        "location": "Wagrierweg 18, 22455 Hamburg"
+    },
+    {
+        "details": "Clubabend der Elbe Beach Hoppers",
+        "location": "Am Isfeld 19, 22589 Hamburg"
+    }
+]
 
 def load_events(file_path):
     """Load events from a JSON file."""
@@ -26,6 +38,25 @@ def list_events(events):
     for idx, event in enumerate(events, start=1):
         print(f"{idx}. {event['date']} {event['time']} - {event['details']} @ {event['location']}")
     return True
+
+def add_common_event(events, common_events):
+    for idx, event in enumerate(common_events, start=1):
+        print(f"{idx}. {event['details']} @ {event['location']}")
+    print("0. Done")
+    choice = int(input("\nWhich Event do you want to add? ").strip()) - 1
+    if choice == -1:
+        return False
+    if 0 <= choice < len(events):
+        event = copy.deepcopy(common_events[choice])
+        event["date"] = input(f"Enter new date: ").strip()
+        event["time"] = input(f"Enter new time: ").strip()
+        if event["date"] != "" and event["time"] != "" and event["details"] and event["location"]:
+            events.append(event)
+            print("Event added successfully!")
+            return True
+        else:
+            print("Invalid input. Event not added.")
+    return False
 
 def add_event(events):
     """Add a new event interactively."""
@@ -94,10 +125,11 @@ def main():
         print("\nEvent Manager")
         print(f"Currently editing: {file_path}")
         print("1. List Events")
-        print("2. Add event")
-        print("3. Edit/Delete event")
-        print("4. Save changes")
-        print("5. Save to a different file")
+        print("2. Add common event")
+        print("3. Add Event")
+        print("4. Edit/Delete event")
+        print("5. Save changes")
+        print("6. Save to a different file")
         print("0. Exit")
 
         choice = input("\nSelect an option: ").strip()
@@ -106,9 +138,11 @@ def main():
         if choice == "1":
             list_events(events)
         elif choice == "2":
+            changes_made = add_common_event(events, common_events)
+        elif choice == "3":
             add_event(events)
             changes_made = True
-        elif choice == "3":
+        elif choice == "4":
             if not list_events(events):
                 continue
             try:
@@ -129,10 +163,10 @@ def main():
                     print("Invalid event number.")
             except ValueError:
                 print("Please enter a valid number.")
-        elif choice == "4":
+        elif choice == "5":
             save_events(events, file_path)
             changes_made = False
-        elif choice == "5":
+        elif choice == "6":
             new_file_path = input("\nEnter new file name to save to: ").strip()
             if new_file_path:
                 if new_file_path != file_path:
