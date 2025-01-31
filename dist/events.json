@@ -4,8 +4,7 @@
         "time": "19:30",
         "details": "Clubabend Ohmoor Squeezers",
         "location": "Wagrierweg 18, 22455 Hamburg"
-    }
-    ,
+    },
     {
         "date": "2025-02-17",
         "time": "19:30",
@@ -23,5 +22,11 @@
         "time": "19:00",
         "details": "41. Rosenmontagsdance bei den Ohmoor Squeezers",
         "location": "Wagrierweg 18, 22455 Hamburg"
+    },
+    {
+        "date": "2025-02-05",
+        "time": "19:30",
+        "details": "Clubabend der Elbe Beach Hoppers",
+        "location": "Am Isfeld 19, 22589 Hamburg"
     }
 ]
