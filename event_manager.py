@@ -10,7 +10,7 @@ common_events = [
         "location": "Wagrierweg 18, 22455 Hamburg"
     },
     {
-        "details": "Clubabend der Elbe Beach Hoppers",
+        "details": "Clubabend Elbe Beach Hoppers",
         "location": "Am Isfeld 19, 22589 Hamburg"
     }
 ]
