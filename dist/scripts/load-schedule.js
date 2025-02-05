@@ -17,21 +17,36 @@ async function loadEvents() {
 
     if (filteredEvents.length > 0) {
         noEventsMessage.style.display = 'none';
-        const formatter = new Intl.DateTimeFormat('de-DE', {
+        const formatterDate = new Intl.DateTimeFormat('de-DE', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
         });
+        const formatterTime = new Intl.DateTimeFormat('de-DE', {
+            timeZone: "Europe/Berlin",
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23"
+        })
         filteredEvents.forEach(event => {
-            const eventDate = new Date(event.date);
-            const formattedDate = formatter.format(eventDate);
+            var calEntry = icsFormatter();
+            const dateTimeString = `${event.date}T${event.time}:00Z`;
+            var begin = new Date(dateTimeString);
+            var end = new Date(begin.getTime() + 120*60000);
+            calEntry.addEvent(event.details, "", event.location, begin.toUTCString(), end.toUTCString());
+
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${event.time}</td>
+                <td>${formatterDate.format(begin)}</td>
+                <td>${formatterTime.format(begin)}</td>
                 <td>${event.details}</td>
                 <td>${event.location}</td>
+                <td><button class="cal-download-btn">Zum Kalender hinzufügen</button></td>
             `;
+            const button = row.querySelector(".cal-download-btn");
+            button.addEventListener("click", () => {
+                window.open(calEntry.download());
+            });
             eventsBody.appendChild(row);
         });
     } else {

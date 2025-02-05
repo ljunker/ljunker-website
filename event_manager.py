@@ -3,6 +3,7 @@ import os
 import sys
 from pathlib import Path
 import copy
+from datetime.now()
 
 common_events = [
     {
@@ -100,6 +101,9 @@ def edit_event(event):
 
     print("Event updated successfully!")
 
+def prune_old_events(events):
+    pass
+
 def delete_event(events, index):
     """Delete an event."""
     deleted_event = events.pop(index)
@@ -128,8 +132,9 @@ def main():
         print("2. Add common event")
         print("3. Add Event")
         print("4. Edit/Delete event")
-        print("5. Save changes")
-        print("6. Save to a different file")
+        print("5. Prune old Events")
+        print("6. Save changes")
+        print("7. Save to a different file")
         print("0. Exit")
 
         choice = input("\nSelect an option: ").strip()
@@ -164,9 +169,11 @@ def main():
             except ValueError:
                 print("Please enter a valid number.")
         elif choice == "5":
+            changes_made = prune_old_events(events)
+        elif choice == "6":
             save_events(events, file_path)
             changes_made = False
-        elif choice == "6":
+        elif choice == "7":
             new_file_path = input("\nEnter new file name to save to: ").strip()
             if new_file_path:
                 if new_file_path != file_path:
